@@ -1,3 +1,0 @@
-// The configured options and settings for the snet-specific includes
-#define SNET_DEVEL_VERSION_MAJOR @SNET_DEVEL_VERSION_MAJOR@
-#define SNET_DEVEL_VERSION_MINOR @SNET_DEVEL_VERSION_MINOR@
