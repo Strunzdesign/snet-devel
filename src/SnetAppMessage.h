@@ -51,6 +51,17 @@ public:
     void     SetToken(uint8_t a_Token = 0) { m_Token = a_Token; }
     uint16_t GetToken() const { return m_Token; }
     
+    // Serializer
+    std::vector<unsigned char> Serialize() const {
+        std::vector<unsigned char> l_Buffer(SnetPacket::Serialize());
+        l_Buffer.emplace_back(0x00);
+        l_Buffer.emplace_back(m_SrcServiceId);
+        l_Buffer.emplace_back(m_DstServiceId);
+        l_Buffer.emplace_back(0x00);
+        l_Buffer.emplace_back(m_Token);
+        return l_Buffer;
+    }
+    
     // Deserializer
     size_t Deserialize(const std::vector<unsigned char>& a_Buffer) {
         size_t l_Offset = SnetPacket::Deserialize(a_Buffer);
@@ -80,17 +91,6 @@ public:
 protected:
     // Query the size of the packet in bytes
     size_t GetSize() const { return (SnetPacket::GetSize() + 5); }
-    
-    // Serializer
-    std::vector<unsigned char> Serialize() const {
-        std::vector<unsigned char> l_Buffer(SnetPacket::Serialize());
-        l_Buffer.emplace_back(0x00);
-        l_Buffer.emplace_back(m_SrcServiceId);
-        l_Buffer.emplace_back(m_DstServiceId);
-        l_Buffer.emplace_back(0x00);
-        l_Buffer.emplace_back(m_Token);
-        return l_Buffer;
-    }
 
 private:
     uint8_t  m_SrcServiceId;

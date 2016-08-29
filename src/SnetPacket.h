@@ -41,6 +41,7 @@
 #include <vector>
 #include <string>
 #include <iomanip>
+#include <sstream>
 
 class SnetPacket {
 public:
@@ -55,13 +56,34 @@ public:
     void     SetOnAirARQ(bool a_OnAirARQ = true) { m_OnAirARQ = a_OnAirARQ; }
     bool     GetOnAirARQ() const { return m_OnAirARQ; }
 
+    // Serializer
+    virtual std::vector<unsigned char> Serialize() const {
+        std::vector<unsigned char> l_Buffer;
+        l_Buffer.emplace_back(0x00);
+        if (m_OnAirARQ) {
+            l_Buffer.emplace_back(0x10);
+        } else {
+            l_Buffer.emplace_back(0x00);
+        } // else
+
+        l_Buffer.emplace_back((m_SrcSSA >> 8) & 0xFF);
+        l_Buffer.emplace_back((m_SrcSSA >> 0) & 0xFF);
+        l_Buffer.emplace_back((m_DstSSA >> 8) & 0xFF);
+        l_Buffer.emplace_back((m_DstSSA >> 0) & 0xFF);
+        if (m_OnAirARQ) {
+            l_Buffer.emplace_back(0x80);
+        } // if
+
+        return l_Buffer;
+    }
+    
     // Deserializer
     virtual size_t Deserialize(const std::vector<unsigned char>& a_Buffer) {
         if (a_Buffer.size() < 6) { return 0; }
         if (a_Buffer[0] != 0x00) { return 0; }
         m_OnAirARQ = (a_Buffer[1] & 0x10);
-        m_SrcSSA   = ntohs(*(uint16_t*)(reinterpret_cast<const uint16_t*>(&a_Buffer[2])));
-        m_DstSSA   = ntohs(*(uint16_t*)(reinterpret_cast<const uint16_t*>(&a_Buffer[4])));
+        m_SrcSSA   = ((a_Buffer[2] << 8) + a_Buffer[3]);
+        m_DstSSA   = ((a_Buffer[4] << 8) + a_Buffer[5]);
         if (m_OnAirARQ) {
             if (a_Buffer.size() >= 7) {
                 if (a_Buffer[6] == 0x80) {
@@ -90,27 +112,6 @@ public:
 protected:
     // Query the size of the packet in bytes
     virtual size_t GetSize() const { if (m_OnAirARQ) { return 7; } else { return 6; } }
-    
-    // Serializer
-    virtual std::vector<unsigned char> Serialize() const {
-        std::vector<unsigned char> l_Buffer;
-        l_Buffer.emplace_back(0x00);
-        if (m_OnAirARQ) {
-            l_Buffer.emplace_back(0x10);
-        } else {
-            l_Buffer.emplace_back(0x00);
-        } // else
-
-        l_Buffer.emplace_back((m_SrcSSA >> 8) & 0xFF);
-        l_Buffer.emplace_back((m_SrcSSA >> 0) & 0xFF);
-        l_Buffer.emplace_back((m_DstSSA >> 8) & 0xFF);
-        l_Buffer.emplace_back((m_DstSSA >> 0) & 0xFF);
-        if (m_OnAirARQ) {
-            l_Buffer.emplace_back(0x80);
-        } // if
-
-        return l_Buffer;
-    }
 
 private:
     // Protocol members
