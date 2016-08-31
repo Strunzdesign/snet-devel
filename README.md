@@ -1,4 +1,4 @@
-# The s-net-specifig header files
+# The s-net-specific header files
 The header files required to build the snet-tools and other s-net-specific clients
 
 This software is intended to be portable and makes use of the boost libraries. It was tested on GNU/Linux (GCC toolchain)
