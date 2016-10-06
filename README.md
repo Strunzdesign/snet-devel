@@ -5,10 +5,12 @@ This software is intended to be portable and makes use of the boost libraries. I
 and Microsoft Windows (nuwen MinGW).
 
 Stable releases of the s-net include files:
-- none yet
+- v1.0 from 10.08.2016
+  - First tested version without any open issues
+  - Before 29.08.2016, these files were part of the snet-tools repository (up to release v1.0),
 
 Current state:
-- Before 29.08.2016, these files were part of the snet-tools repository (up to release v1.0),
+- v1.1pre (git master branch)
 
 Required libraries and tools:
 - None. This repository does only contain C++ header files.
