@@ -5,7 +5,7 @@ This software is intended to be portable and makes use of the boost libraries. I
 and Microsoft Windows (nuwen MinGW).
 
 Stable releases of the s-net include files:
-- v1.0 from 10.08.2016
+- v1.0 from 06.10.2016
   - First tested version without any open issues
   - Before 29.08.2016, these files were part of the snet-tools repository (up to release v1.0),
 
