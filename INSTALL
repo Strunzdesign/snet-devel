@@ -2,7 +2,7 @@
 How to install the s-net-specific header files
 ===
 
-For GNU/Linux:
+Initial download and setup on GNU/Linux:
 ---
 On GNU/Linux systems, installation is easy, as long as the required tools are available.
 
@@ -22,7 +22,7 @@ The header files will be installed to "/usr/local/include/"
 
 
 
-For Microsoft Windows 7:
+Initial download and setup on Microsoft Windows 7:
 ---
 For Microsoft Windows, one has to install the toolchain first.
 
@@ -46,5 +46,15 @@ To compile the HDLC daemon and to install it along with the header files, just f
 10.) make install
 
 The header files will be installed to "C:\snet-devel\include" if not specified differently.
+
+
+
+Update and reompile your local repository (same for all OS):
+---
+1.) cd snet-devel
+2.) git pull
+3.) cd build
+4.) make
+5.) make install
 
 Have fun :-)
