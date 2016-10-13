@@ -49,7 +49,7 @@ The header files will be installed to "C:\snet-devel\include" if not specified d
 
 
 
-Update and reompile your local repository (same for all OS):
+Update and recompile your local repository (same for all OS):
 ---
 1.) cd snet-devel
 2.) git pull
