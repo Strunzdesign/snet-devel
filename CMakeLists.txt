@@ -19,7 +19,7 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Wall -Wextra")
 
 # Automatically set the version number
 set(SNET_DEVEL_VERSION_MAJOR  \"1\")
-set(SNET_DEVEL_VERSION_MINOR  \"1pre\")
+set(SNET_DEVEL_VERSION_MINOR  \"1\")
 include_directories("${PROJECT_BINARY_DIR}/src")
 configure_file (
     "${PROJECT_SOURCE_DIR}/src/SnetConfig.h.in"
